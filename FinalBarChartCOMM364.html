@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Penn State Tuition vs Median Debt</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h1>Penn State Tuition vs Median Debt Comparison</h1>
+  <canvas id="barChart" width="800" height="400"></canvas>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    var universityNames = [
+      "Penn State", "University of Michigan", "UC Berkeley", 
+      "University of Florida", "Ohio State University", 
+      "University of Washington", "Harvard", "MIT", "Columbia", "USC"
+    ];
+
+    var tuitionData = [18340, 15960, 14736, 6545, 11215, 11207, 51500, 53790, 61450, 60250];
+    var debtData = [21000, 15000, 16000, 22000, 20000, 22000, 20000, 24000, 26000, 27000];
+
+    var barColors = universityNames.map(name => name === "Penn State" ? 'gold' : 'rgba(54,162,235,0.7)');
+    var debtColors = universityNames.map(name => name === "Penn State" ? 'darkorange' : 'rgba(255,99,132,0.7)');
+
+    var ctxBar = document.getElementById('barChart').getContext('2d');
+    var barChart = new Chart(ctxBar, {
+      type: 'bar',
+      data: {
+        labels: universityNames,
+        datasets: [
+          { label: 'Tuition ($)', data: tuitionData, backgroundColor: barColors },
+          { label: 'Median Debt ($)', data: debtData, backgroundColor: debtColors }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true, title: { display: true, text: 'Dollars ($)' } },
+          x: { title: { display: true, text: 'University' } }
+        },
+        plugins: {
+          legend: { position: 'top' },
+          title: { display: true, text: 'Tuition and Median Debt Comparison (Penn State Highlighted)' }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
